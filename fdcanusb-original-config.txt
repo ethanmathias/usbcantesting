@@ -1,0 +1,141 @@
+# mjbots fdcanusb configuration as found, before any change for the
+# Rivanna3S CAN stress test (issue #200). Captured with `conf enumerate`.
+#
+# Device : /dev/cu.usbmodem43B1E4081
+# Serial : 43B1E408   (USB 0483:5740, STM32 CDC ACM)
+# Captured: 2026-11-15
+#
+# Only three keys are changed for this bus. To undo:
+#   python3 fdcanusb_setup.py --restore
+# or by hand:
+#   conf set can.bitrate 1000000
+#   conf set can.fdcan_frame 1
+#   conf set can.bitrate_switch 1
+#
+# `conf set` is volatile; it survives only until the adapter loses power,
+# unless followed by `conf write`. If you ever `conf write`, restore from
+# this file and `conf write` again.
+
+uuid.uuid.0 32
+uuid.uuid.1 63
+uuid.uuid.2 230
+uuid.uuid.3 145
+uuid.uuid.4 86
+uuid.uuid.5 79
+uuid.uuid.6 74
+uuid.uuid.7 192
+uuid.uuid.8 162
+uuid.uuid.9 86
+uuid.uuid.10 178
+uuid.uuid.11 93
+uuid.uuid.12 24
+uuid.uuid.13 220
+uuid.uuid.14 240
+uuid.uuid.15 103
+clock.can_hz 85000000
+clock.hsitrim 64
+can.bitrate 1000000
+can.fd_bitrate 5000000
+can.automatic_retransmission 0
+can.fdcan_frame 1
+can.bitrate_switch 1
+can.restricted_mode 0
+can.bus_monitor 0
+can.termination 1
+can.autostart 1
+can.delay_compensation 1
+can.tdc_offset 13
+can.tdc_filter 1
+can.global.std_action 0
+can.global.ext_action 0
+can.global.remote_std_action 0
+can.global.remote_ext_action 0
+can.filter.0.id1 0
+can.filter.0.id2 0
+can.filter.0.mode 0
+can.filter.0.type 0
+can.filter.0.action 0
+can.filter.1.id1 0
+can.filter.1.id2 0
+can.filter.1.mode 0
+can.filter.1.type 0
+can.filter.1.action 0
+can.filter.2.id1 0
+can.filter.2.id2 0
+can.filter.2.mode 0
+can.filter.2.type 0
+can.filter.2.action 0
+can.filter.3.id1 0
+can.filter.3.id2 0
+can.filter.3.mode 0
+can.filter.3.type 0
+can.filter.3.action 0
+can.filter.4.id1 0
+can.filter.4.id2 0
+can.filter.4.mode 0
+can.filter.4.type 0
+can.filter.4.action 0
+can.filter.5.id1 0
+can.filter.5.id2 0
+can.filter.5.mode 0
+can.filter.5.type 0
+can.filter.5.action 0
+can.filter.6.id1 0
+can.filter.6.id2 0
+can.filter.6.mode 0
+can.filter.6.type 0
+can.filter.6.action 0
+can.filter.7.id1 0
+can.filter.7.id2 0
+can.filter.7.mode 0
+can.filter.7.type 0
+can.filter.7.action 0
+can.filter.8.id1 0
+can.filter.8.id2 0
+can.filter.8.mode 0
+can.filter.8.type 0
+can.filter.8.action 0
+can.filter.9.id1 0
+can.filter.9.id2 0
+can.filter.9.mode 0
+can.filter.9.type 0
+can.filter.9.action 0
+can.filter.10.id1 0
+can.filter.10.id2 0
+can.filter.10.mode 0
+can.filter.10.type 0
+can.filter.10.action 0
+can.filter.11.id1 0
+can.filter.11.id2 0
+can.filter.11.mode 0
+can.filter.11.type 0
+can.filter.11.action 0
+can.filter.12.id1 0
+can.filter.12.id2 0
+can.filter.12.mode 0
+can.filter.12.type 0
+can.filter.12.action 0
+can.filter.13.id1 0
+can.filter.13.id2 0
+can.filter.13.mode 0
+can.filter.13.type 0
+can.filter.13.action 0
+can.filter.14.id1 0
+can.filter.14.id2 0
+can.filter.14.mode 0
+can.filter.14.type 0
+can.filter.14.action 0
+can.filter.15.id1 0
+can.filter.15.id2 0
+can.filter.15.mode 0
+can.filter.15.type 0
+can.filter.15.action 0
+can.rate.prescaler -1
+can.rate.sync_jump_width -1
+can.rate.time_seg1 -1
+can.rate.time_seg2 -1
+can.fdrate.prescaler -1
+can.fdrate.sync_jump_width -1
+can.fdrate.time_seg1 -1
+can.fdrate.time_seg2 -1
+OK
