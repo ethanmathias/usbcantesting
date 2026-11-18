@@ -149,3 +149,49 @@ core only reads its configuration when it initialises.
   [`fdcanusb-original-config.txt`](fdcanusb-original-config.txt). The `AS_FOUND`
   values in the script come from that file, so if you ever change the adapter's
   baseline, change both.
+
+## Testing your CAN changes before they touch the car
+
+Neither adapter is much use pointed at a powered-down car, and testing CAN
+changes on the car itself means the measurement competes with precharge, ADCs,
+relay outputs and the fault handler. So there is a firmware target that is
+nothing but a CAN receiver, running on a **NUCLEO-G474RE** -- the same MCU as the
+car boards, on a board you can leave on the bench.
+
+It lives on the [`nucleo-board`](https://github.com/solarcaratuva/Rivanna3S/tree/nucleo-board)
+branch of Rivanna3S, which is branched off `main` and holds the NucleoBoard
+target and nothing else. That is deliberate: it is there to be branched from.
+
+```bash
+# in the Rivanna3S repo
+git fetch origin
+git checkout -b my-can-work origin/nucleo-board
+# ... make your CAN changes, or merge in the branch you already have ...
+python3 compile.py
+python3 upload.py nucleo
+python3 monitor.py
+```
+
+Wire the Nucleo's **PB_5 (RX) and PB_6 (TX)** to a CAN transceiver breakout, and
+that breakout to the adapter. PB_5/PB_6 is FDCAN2, the same instance the car's
+main bus uses on RelayBoard, TopDistBoard, BottomDistBoard and MotorBoard, which
+is the point of picking it. The log comes out of the Nucleo's own ST-Link virtual
+COM port at 921600 baud, so one USB cable both flashes it and prints the results.
+
+The firmware prints a `STRESS` block once a second:
+
+```
+STRESS got=9000 span=9000 missing=0 gaps=0 bad=0 restarts=0
+STRESS seq=1..9000 fifo=0(+0)
+```
+
+`missing` is frames the sequence proves never arrived. `fifo` is how many of
+those were hardware RX FIFO0 overruns, meaning the board was too slow to drain a
+3-deep FIFO rather than the bus losing anything. Those two numbers together are
+the whole reason the bench exists: without the `fifo` count, a dropped frame
+tells you something is wrong but not what.
+
+For reference, with the interrupt-driven driver the car's bus (100-150 frames/s)
+sits at zero loss, first losses show up around 615 frames/s, and it is 10-12% at
+1300 frames/s. If your change moves those numbers, that is worth knowing before
+it ships.
